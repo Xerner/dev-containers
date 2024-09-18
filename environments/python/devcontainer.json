@@ -1,14 +1,15 @@
 {
+  "name": "python",
   "initializeCommand": {
     // "POWERSHELL_SSH_SETUP": "powershell .devcontainer/setup-ssh-env.ps1"
     "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-ssh-env.sh"
   },
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
-  "containerUser": "km629",
   "build": {
     "dockerfile": "./Dockerfile"
   },
   "containerEnv": {
+    "WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
     "BUILD_CONFIGURATION": "DEVELOPMENT"
   },
   "customizations": {
