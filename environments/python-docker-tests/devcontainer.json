@@ -1,0 +1,31 @@
+{
+	"name": "docker testing",
+	"initializeCommand": {
+		"BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-env.sh"
+	},
+	"onCreateCommand": "pwd",
+	"runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env"],
+	"build": {
+		"dockerfile": "./Dockerfile"
+	},
+	"mounts": [
+		{ "source": "/var/run/docker.sock", "target": "/var/run/docker.sock", "type": "bind" },
+		{ "source": "${localWorkspaceFolder}/.devcontainer/temp/.ssh", "target": "/root/.ssh", "type": "bind" },
+		{ "source": "${localWorkspaceFolder}/.devcontainer/home/.ssh", "target": "/root/", "type": "bind" }
+	],
+	"containerEnv": {
+		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
+		"BUILD_CONFIGURATION": "DEVELOPMENT"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"esbenp.prettier-vscode",
+				"PKief.material-icon-theme",
+				"usernamehw.errorlens",
+				"ms-azuretools.vscode-docker",
+				"donjayamanne.python-extension-pack"
+			]
+		}
+	}
+}

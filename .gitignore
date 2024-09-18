@@ -1,4 +1,7 @@
-.env
+/home/*
+!/home/bash/
+!/home/.bashrc
+temp/
 /devcontainer.json
 /Dockerfile
 !/environment/**/devcontainer.json

@@ -14,5 +14,4 @@ RUN chmod a+rx ~/.bin/repo
 
 RUN npm install -g @angular/cli
 
-COPY /copy/* /root
 ENTRYPOINT ["tail", "-f", "/dev/null"]

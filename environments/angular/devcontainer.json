@@ -1,10 +1,9 @@
 {
   "name": "angular",
   "initializeCommand": {
-    // "POWERSHELL_SSH_SETUP": "powershell .devcontainer/setup-ssh-env.ps1"
-    "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-ssh-env.sh"
+    "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-env.sh"
   },
-  "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
+  "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env"],
   "build": {
     "dockerfile": "./Dockerfile"
   },
@@ -12,6 +11,10 @@
     "WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
     "BUILD_CONFIGURATION": "DEVELOPMENT"
   },
+  "mounts": [
+		{ "source": "${localWorkspaceFolder}/.devcontainer/temp/.ssh", "target": "/root/.ssh", "type": "bind" },
+		{ "source": "${localWorkspaceFolder}/.devcontainer/home/.ssh", "target": "/root/", "type": "bind" }
+	],
   "customizations": {
     "vscode": {
       "extensions": [
