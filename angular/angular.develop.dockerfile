@@ -1,7 +1,5 @@
 FROM node:latest
 
-ENV BUILD_CONFIGURATION=PRODUCTION
-
 RUN apt update --yes
 RUN apt upgrade --yes
 RUN apt install git
