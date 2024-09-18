@@ -1,11 +1,11 @@
 {
   "initializeCommand": {
     // "POWERSHELL_SSH_SETUP": "powershell .devcontainer/setup-ssh-env.ps1"
-    "BASH_SSH_SETUP": "bash .devcontainer/setup-ssh-env.sh"
+    "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-ssh-env.sh"
   },
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
   "build": {
-    "dockerfile": "./docker/Dockerfile.develop"
+    "dockerfile": "./angular/angular.develop.dockerfile"
   },
   "containerEnv": {
     "BUILD_CONFIGURATION": "DEVELOPMENT"
