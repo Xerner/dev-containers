@@ -5,7 +5,9 @@ source ~/add-ssh-from-env.sh
 source ~/add-git-info-from-env.sh
 source ~/git-set-submodule-settings.sh
 
-git config --global --add safe.directory $WORKSPACE_FOLDER
+# git config --global --add safe.directory "$WORKSPACE_FOLDER/*"
+git config --global --add safe.directory "*"
+git config --global core.editor "code --wait"
 
 PATH="${HOME}/.bin:${PATH}"
 
