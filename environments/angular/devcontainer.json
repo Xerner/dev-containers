@@ -4,8 +4,9 @@
     "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-ssh-env.sh"
   },
   "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
+  "containerUser": "km629",
   "build": {
-    "dockerfile": "./angular/angular.develop.dockerfile"
+    "dockerfile": "./Dockerfile"
   },
   "containerEnv": {
     "BUILD_CONFIGURATION": "DEVELOPMENT"
