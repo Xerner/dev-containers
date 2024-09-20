@@ -1,7 +1,13 @@
-source .devcontainer/home/colors.sh
+source .devcontainer/home/bash/colors.sh
+
+# temp dir
 rm -rf .devcontainer/temp
 mkdir .devcontainer/temp
+
+# ssh
 source .devcontainer/scripts/copy-ssh.sh
+
+# .env file
 echo "Setting up environment variables"
 GIT_USER="$(git config --global user.name)"
 GIT_EMAIL="$(git config --global user.email)"

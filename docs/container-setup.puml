@@ -1,0 +1,49 @@
+@startuml Dev Container Setup
+skinparam BackgroundColor white
+skinparam ClassFontColor black
+skinparam ArrowColor black
+skinparam ArrowFontColor black
+
+title Dev Container Setup
+
+start
+
+floating note left: All operations are performed\nin the default WSL distro
+
+group "in wsl" {
+  :<b>pre-requisites</b>
+  
+  .ssh folder is setup in default wsl distro;
+
+  :initializeCommand
+
+  <b>setup.sh</b>;
+
+  group "**script** setup.ssh" {
+    #f5f5dc:<b>\~/.ssh</b> copied to <b>.devcontainer/home</b>; <<output>>
+    #f5f5dc:<b>.devcontainer/temp/.env</b>
+
+    .env file created with Git credentials; <<output>>
+
+    :<b>.env</b> file provided as runArg\nin devcontainer.json
+    <b>.devcontainer/home</b> folder provided as bind mount in devcontainer.json
+    this provides the .ssh folder with is necessary for the ssh-agent;
+  }
+}
+
+#ddffdd:container started;
+
+group "*in container**" {
+  :terminal opens and .bashrc runs;
+
+  group "**script** .bashrc" {
+    :<b>colors.sh</b> colors yay
+    <b>.bash_git</b> necessary for git bash prompt
+    <b>bash_prompt.sh</b> necessary for git bash prompt
+    <b>add-git-info-from-env.sh</b> sets git credentials from environment variables
+    <b>git-set-submodule-settings.sh</b> sets up git settings and aliases for submodules;
+  }
+}
+
+end
+@enduml
