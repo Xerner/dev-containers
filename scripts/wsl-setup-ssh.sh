@@ -5,24 +5,39 @@ if [[ ! -e /mnt/c ]]; then
   exit 1
 fi
 
+WINDOWS_USER=""
 WSL_USER=$(whoami)
 CONTAINER_USER="root"
 USAGE="usage: wsl-setup-ssh.sh [--wsl-user STRING]
 
 WARNING: runs sudo
 
-Copies the windows ~/.ssh folder to wsl at ~/.ssh and sets the chown of each file to '$CONTAINER_USER'. 
+Copies the windows /c/users/$WINDOWS_USER/.ssh folder to wsl at /home/$WSL_USER/.ssh and sets the chown of each file to '$CONTAINER_USER'. 
 File permissions probably need to be checked manually
 
-  -u, --wsl-user        STRING    Defaults to $WSL_USER. The user to use when copying the .ssh folder
-  -cu, --container-user STRING    Defaults to $CONTAINER_USER. The user to set key permissions to
+Required
+  --windows-user    STRING        The user to use when copying the .ssh folder
+
+Optional
+  --wsl-user        STRING        Defaults to $WSL_USER. The user to use when copying the .ssh folder
+  --container-user  STRING        Defaults to $CONTAINER_USER. The user to set key permissions to
   -h, --help                      Show this help
 "
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
   case $1 in
-    -u|--wsl-user)
+    --windows-user)
+      WINDOWS_USER=$2
+      shift # past argument
+      shift # past value
+      ;;
+    --wsl-user)
       WSL_USER=$2
+      shift # past argument
+      shift # past value
+      ;;
+    --container-user)
+      CONTAINER_USER=$2
       shift # past argument
       shift # past value
       ;;
@@ -42,15 +57,15 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 
-if [[ -z $WSL_USER ]]; then
-  echo -e "invalid arguments\n\wsl user: ${WSL_USER}\n\n$USAGE"
+if [[ -z $WINDOWS_USER ]]; then
+  echo -e "invalid arguments\n\windows user: ${WINDOWS_USER}\n\n$USAGE"
   exit 1
 fi
 
-cp -r /mnt/c/users/$WSL_USER/.ssh ~/.ssh
-sudo find ~/.ssh -maxdepth 1 -type f -exec chown root {} \;
-sudo chown ~/.ssh root
-find ~/.ssh -maxdepth 1 -type f -exec chmod 600 {} \;
-find ~/.ssh/known_hosts -type f -exec chmod 644 {} \;
-find ~/.ssh/*.pub -type       f -exec chmod 644 {} \;
-chmod ~/.ssh 0700
+cp -r /mnt/c/users/$WINDOWS_USER/.ssh /home/$WSL_USER/.ssh
+sudo find /home/$WSL_USER/.ssh -maxdepth 1 -type f -exec chown $CONTAINER_USER {} \;
+sudo chown $CONTAINER_USER /home/$WSL_USER/.ssh
+find /home/$WSL_USER/.ssh -maxdepth 1 -type f -exec chmod 600 {} \;
+find /home/$WSL_USER/.ssh/known_hosts -type f -exec chmod 644 {} \;
+find /home/$WSL_USER/.ssh/*.pub -type       f -exec chmod 644 {} \;
+chmod 0700 /home/$WSL_USER/.ssh 

@@ -1,17 +1,17 @@
 {
 	"name": "docker testing",
 	"initializeCommand": {
-		"BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-env.sh"
+		"BASH_SSH_SETUP": "bash -c .devcontainer/scripts/setup.sh"
 	},
-	"onCreateCommand": "pwd",
 	"runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env"],
 	"build": {
 		"dockerfile": "./Dockerfile"
 	},
 	"mounts": [
-		{ "source": "/var/run/docker.sock", "target": "/var/run/docker.sock", "type": "bind" },
-		{ "source": "${localWorkspaceFolder}/.devcontainer/temp/.ssh", "target": "/root/.ssh", "type": "bind" },
-		{ "source": "${localWorkspaceFolder}/.devcontainer/home/.ssh", "target": "/root/", "type": "bind" }
+    "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh",
+		"type=bind,source=${localWorkspaceFolder}/.devcontainer/home/.bashrc,target=/root/.bashrc",
+		"type=bind,source=${localWorkspaceFolder}/.devcontainer/home/bash,target=/root/bash",
+		{ "source": "/var/run/docker.sock", "target": "/var/run/docker.sock", "type": "bind" }
 	],
 	"containerEnv": {
 		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
@@ -24,7 +24,8 @@
 				"PKief.material-icon-theme",
 				"usernamehw.errorlens",
 				"ms-azuretools.vscode-docker",
-				"donjayamanne.python-extension-pack"
+				"donjayamanne.python-extension-pack",
+				"ms-python.vscode-pylance"
 			]
 		}
 	}
