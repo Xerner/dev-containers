@@ -1,6 +1,5 @@
 /home/*
-!/home/bash/
-!/home/.bashrc
+!/home/.gitkeep
 temp/
 /devcontainer.json
 /Dockerfile

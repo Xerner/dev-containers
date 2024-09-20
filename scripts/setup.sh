@@ -1,8 +1,11 @@
-source .devcontainer/home/bash/colors.sh
+source .devcontainer/copy/bash/colors.sh
 
 # temp dir
 rm -rf .devcontainer/temp
 mkdir .devcontainer/temp
+
+# .bashrc and more
+source .devcontainer/scripts/copy-copy-folder.sh
 
 # ssh
 source .devcontainer/scripts/copy-ssh.sh
