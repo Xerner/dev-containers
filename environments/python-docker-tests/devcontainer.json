@@ -3,12 +3,15 @@
 	"initializeCommand": {
 		"BASH_SSH_SETUP": "bash -c .devcontainer/scripts/setup.sh"
 	},
-	"runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env"],
+	"runArgs": [
+    "--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env",
+    "--network", "host"
+  ],
 	"build": {
 		"dockerfile": "./Dockerfile"
 	},
 	"mounts": [
-    "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh",
+    // "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh",
 		"type=bind,source=${localWorkspaceFolder}/.devcontainer/home/.bashrc,target=/root/.bashrc",
 		"type=bind,source=${localWorkspaceFolder}/.devcontainer/home/bash,target=/root/bash",
 		{ "source": "/var/run/docker.sock", "target": "/var/run/docker.sock", "type": "bind" }
@@ -25,7 +28,8 @@
 				"usernamehw.errorlens",
 				"ms-azuretools.vscode-docker",
 				"donjayamanne.python-extension-pack",
-				"ms-python.vscode-pylance"
+				"ms-python.vscode-pylance",
+				"KevinRose.vsc-python-indent"
 			]
 		}
 	}
