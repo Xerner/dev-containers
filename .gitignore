@@ -1,5 +1,5 @@
-/home/*
-!/home/.gitkeep
+# /home/*
+# !/home/.gitkeep
 temp/
 /devcontainer.json
 /Dockerfile

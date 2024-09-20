@@ -6,10 +6,17 @@ if [[ ! -e /mnt/c ]]; then
 fi
 
 WSL_USER=$(whoami)
+CONTAINER_USER="root"
 USAGE="usage: wsl-setup-ssh.sh [--wsl-user STRING]
 
-  -u, --wsl-user STRING    Defaults to $WSL_USER. The user to use when copying the .ssh folder
-  -h, --help               Show this help
+WARNING: runs sudo
+
+Copies the windows ~/.ssh folder to wsl at ~/.ssh and sets the chown of each file to '$CONTAINER_USER'. 
+File permissions probably need to be checked manually
+
+  -u, --wsl-user        STRING    Defaults to $WSL_USER. The user to use when copying the .ssh folder
+  -cu, --container-user STRING    Defaults to $CONTAINER_USER. The user to set key permissions to
+  -h, --help                      Show this help
 "
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
@@ -40,5 +47,10 @@ if [[ -z $WSL_USER ]]; then
   exit 1
 fi
 
-copy -r /mnt/c/users/$WSL_USER/.ssh ~/.ssh
+cp -r /mnt/c/users/$WSL_USER/.ssh ~/.ssh
+sudo find ~/.ssh -maxdepth 1 -type f -exec chown root {} \;
+sudo chown ~/.ssh root
 find ~/.ssh -maxdepth 1 -type f -exec chmod 600 {} \;
+find ~/.ssh/known_hosts -type f -exec chmod 644 {} \;
+find ~/.ssh/*.pub -type       f -exec chmod 644 {} \;
+chmod ~/.ssh 0700
