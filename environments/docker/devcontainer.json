@@ -1,5 +1,5 @@
 {
-	"name": "docker testing",
+	"name": "docker",
 	"initializeCommand": {
 		"BASH_SSH_SETUP": "bash -c .devcontainer/scripts/setup.sh"
 	},
