@@ -10,22 +10,33 @@ start
 
 floating note left: All operations are performed\nin the default WSL distro
 
-group "in wsl" {
-  :<b>pre-requisites</b>
+group "in devcontainer.json" {
+  #dfdfff:<b>bind mounts</b>
   
-  .ssh folder is setup in default wsl distro;
+  | source | target |
+  | ${localEnv:HOME}/.ssh | /root/.ssh |
+  | ${localWorkspaceFolder}/.devcontainer/home/.bashrc | /root/.bashrc |
+  | ${localWorkspaceFolder}/.devcontainer/home/bash | /root/bash |
+  ; <<input>>
+}
+
+group "in wsl" {
+  #f5f5dc:<b>pre-requisites</b>
+  
+  .ssh folder is setup in default wsl distro
+  Setup ssh in windows, then run <i>scripts/wsl-setup-ssh.sh</i> 
+  inside WSL to setup ssh; <<output>>
 
   :initializeCommand
 
   <b>setup.sh</b>;
 
   group "**script** setup.ssh" {
-    #f5f5dc:<b>\~/.ssh</b> copied to <b>.devcontainer/home</b>; <<output>>
     #f5f5dc:<b>.devcontainer/temp/.env</b>
 
     .env file created with Git credentials; <<output>>
 
-    :<b>.env</b> file provided as runArg\nin devcontainer.json
+    :<b>.env</b> file provided as runArg in devcontainer.json
     <b>.devcontainer/home</b> folder provided as bind mount in devcontainer.json
     this provides the .ssh folder with is necessary for the ssh-agent;
   }
@@ -33,7 +44,7 @@ group "in wsl" {
 
 #ddffdd:container started;
 
-group "*in container**" {
+group "in container" {
   :terminal opens and .bashrc runs;
 
   group "**script** .bashrc" {

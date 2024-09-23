@@ -5,20 +5,21 @@
 	},
 	"runArgs": [
     "--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env",
-    "--network", "host"
+    "--network", "host" // this is necessary to run a 2nd temporary docker registry inside the container
   ],
 	"build": {
 		"dockerfile": "./Dockerfile"
 	},
 	"mounts": [
-    // "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh",
-		"type=bind,source=${localWorkspaceFolder}/.devcontainer/home/.bashrc,target=/root/.bashrc",
-		"type=bind,source=${localWorkspaceFolder}/.devcontainer/home/bash,target=/root/bash",
+    // general purpose
+    { "type": "bind", "source": "${localEnv:HOME}/.ssh", "target": "/root/.ssh" },
+    { "type": "bind", "source": "${localWorkspaceFolder}/.devcontainer/home/.bashrc", "target": "/root/.bashrc" },
+    { "type": "bind", "source": "${localWorkspaceFolder}/.devcontainer/home/bash", "target": "/root/bash" },
+    // for testing docker inside the container
 		{ "source": "/var/run/docker.sock", "target": "/var/run/docker.sock", "type": "bind" }
 	],
 	"containerEnv": {
-		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
-		"BUILD_CONFIGURATION": "DEVELOPMENT"
+		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
 	},
 	"customizations": {
 		"vscode": {
@@ -29,7 +30,8 @@
 				"ms-azuretools.vscode-docker",
 				"donjayamanne.python-extension-pack",
 				"ms-python.vscode-pylance",
-				"KevinRose.vsc-python-indent"
+				"KevinRose.vsc-python-indent",
+				"jebbs.plantuml"
 			]
 		}
 	}
