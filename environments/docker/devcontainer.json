@@ -12,7 +12,7 @@
 	},
 	"mounts": [
     // general purpose
-    { "type": "bind", "source": "${localEnv:HOME}/.ssh", "target": "/root/.ssh" },
+    { "type": "bind", "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.ssh", "target": "/root/.ssh" },
     { "type": "bind", "source": "${localWorkspaceFolder}/.devcontainer/home/.bashrc", "target": "/root/.bashrc" },
     { "type": "bind", "source": "${localWorkspaceFolder}/.devcontainer/home/bash", "target": "/root/bash" },
     // for testing docker inside the container
