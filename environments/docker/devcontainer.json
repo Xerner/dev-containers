@@ -20,7 +20,7 @@
 	],
 	"containerEnv": {
 		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
-    "REGISTRY_URL": "DeployNode01:5000"
+    "REGISTRY_URL": "DeployNode01.goutsi.com:5000"
 	},
 	"customizations": {
 		"vscode": {
