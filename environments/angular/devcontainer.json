@@ -1,19 +1,21 @@
 {
   "name": "angular",
   "initializeCommand": {
-    "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup-env.sh"
+    "BASH_SSH_SETUP": "bash .devcontainer/scripts/setup.sh"
   },
-  "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env"],
+  "runArgs": [
+    "--env-file", "${localWorkspaceFolder}/.devcontainer/temp/.env"
+  ],
   "build": {
     "dockerfile": "./Dockerfile"
   },
   "containerEnv": {
-    "WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
-    "BUILD_CONFIGURATION": "DEVELOPMENT"
+    "WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
   },
   "mounts": [
-		{ "source": "${localWorkspaceFolder}/.devcontainer/temp/.ssh", "target": "/root/.ssh", "type": "bind" },
-		{ "source": "${localWorkspaceFolder}/.devcontainer/home/.ssh", "target": "/root/", "type": "bind" }
+    { "type": "bind", "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.ssh", "target": "/root/.ssh" },
+    { "type": "bind", "source": "${localWorkspaceFolder}/.devcontainer/home/.bashrc", "target": "/root/.bashrc" },
+    { "type": "bind", "source": "${localWorkspaceFolder}/.devcontainer/home/bash", "target": "/root/bash" }
 	],
   "customizations": {
     "vscode": {

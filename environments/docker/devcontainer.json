@@ -19,7 +19,8 @@
 		{ "source": "/var/run/docker.sock", "target": "/var/run/docker.sock", "type": "bind" }
 	],
 	"containerEnv": {
-		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
+		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}",
+    "REGISTRY_URL": "DeployNode01"
 	},
 	"customizations": {
 		"vscode": {
