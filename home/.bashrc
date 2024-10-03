@@ -40,3 +40,7 @@ to see this info again, printf \"\$WELCOME_INFO\"
 "
 
 printf "$WELCOME_INFO"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
